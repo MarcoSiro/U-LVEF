@@ -1,0 +1,31 @@
+
+# Ambiente Virtuale
+.venv/
+venv/
+env/
+
+# Python 
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dati 
+data/
+*.zip
+*.tar.gz
+
+# Logs 
+logs/
+
+# Sistema Operativo (Mac)
+.DS_Store
+
+# IDE (VS Code)
+.vscode/
+
+Notes.txt
+
+src/visualize_data.py
+
+checkpoints/
