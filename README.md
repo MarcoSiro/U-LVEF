@@ -83,7 +83,7 @@ U-LVEF/
 ├── checkpoints/            # Best model weights (.ckpt) for each version
 ├── logs/                   # (Auto-generated) CSV metrics and training curves
 ├── checkpoints/            # (Auto-generated) Best model weights (.ckpt)
-├── assets/                 # loss plots for models versions and example of image segmentation and EF (of v4 model)
+├── assets/                 # loss plots for models versions and example of image segmentation 
 ├── requirements.txt 
 ├── .gitignore
 └── README.md
