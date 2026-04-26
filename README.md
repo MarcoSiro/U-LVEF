@@ -122,7 +122,7 @@ python src/main.py
 ### 4. Load Pre-Trained Weights
 The checkpoints for every model version are included in the /checkpoints folder. To load the model for inference:
 ```python
-model = LightningModel.load_from_checkpoint("checkpoints/best-model.ckpt")
+model = LightningModel.load_from_checkpoint("checkpoints/best-model-v1(2,3,4).ckpt")
 ```
 
 ---
