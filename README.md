@@ -80,9 +80,8 @@ U-LVEF/
 │   ├── utilities.py        # Core logic: PyTorch Lightning Module, Dataset, UNet 
 │   └── main.py             # Entry point: Training loop, Logging, and chart generation
 │
-├── checkpoints/            # Best model weights (.ckpt) for each version
+├── checkpoints/            # Best model weights (.ckpt) for v2,v3,v4
 ├── logs/                   # (Auto-generated) CSV metrics and training curves
-├── checkpoints/            # (Auto-generated) Best model weights (.ckpt)
 ├── assets/                 # loss plots for models versions and example of image segmentation 
 ├── requirements.txt 
 ├── .gitignore
@@ -117,9 +116,9 @@ python src/main.py
 ```
 
 ### 4. Load Pre-Trained Weights
-The checkpoints for every best model version are included in the /checkpoints folder. To load the model for inference:
+The checkpoints for model version v2, v3 e v4 are included in the /checkpoints folder. To load the model for inference:
 ```python
-model = LightningModel.load_from_checkpoint("checkpoints/best-model-v1(2,3,4).ckpt")
+model = LightningModel.load_from_checkpoint("checkpoints/best-model-v2(3,4).ckpt")
 ```
 
 ---
