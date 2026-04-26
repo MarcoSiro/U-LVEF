@@ -1,4 +1,4 @@
-# U-LVEF: Clinical-Grade Left Ventricle Segmentation & EF Calculation 🫀🤖
+# U-LVEF: Clinical-Grade Left Ventricle Segmentation 
 
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)](https://pytorch.org/)
@@ -7,11 +7,10 @@
 [![Dataset](https://img.shields.io/badge/Dataset-CAMUS-blue.svg?style=flat&logo=data-table&logoColor=white)](https://huggingface.co/datasets)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**U-LVEF** is an end-to-end Deep Learning pipeline for the automatic segmentation of the left ventricle, myocardium, and left atrium from 2D echocardiographic images (CAMUS dataset), featuring the automated calculation of the Left Ventricular Ejection Fraction (LVEF) directly from the model's predictions.
+**U-LVEF** is an end-to-end Deep Learning pipeline for the automatic segmentation of the left ventricle, myocardium, and left atrium from 2D echocardiographic images (CAMUS dataset).
 
-## 🚀 Key Features
+## Key Features
 
-* **Automated Clinical Metrics:** Includes a dedicated module to calculate the Ejection Fraction (LVEF) automatically from the generated End-Diastolic (ED) and End-Systolic (ES) segmentation masks.
 * **Optimized U-Net Architecture:** Implementation of a custom, highly efficient U-Net variant (**UNetMini**) designed for cardiac segmentation. The architecture leverages a symmetric encoder-decoder structure with skip connections to preserve fine-grained spatial information, essential for accurate boundary delineation in echocardiography.
 * **Patient-Level Data Split:** The dataset is split into Train/Val/Test ensuring that all images belonging to the same patient remain in the same set. This eliminates *Data Leakage* and ensures the Dice Score reflects the model's true generalization capability on unseen anatomies.
 * **Hardware Efficiency:** Natively optimized for Apple Silicon (MPS) chips and hardware with limited unified memory.
@@ -82,8 +81,7 @@ U-LVEF/
 │   ├── download_data.py    # Downloads the CAMUS dataset from HuggingFace Hub
 │   ├── preprocess.py       # Converts .mhd/.raw images into standardized .npy tensors
 │   ├── utilities.py        # Core logic: PyTorch Lightning Module, Dataset, UNet 
-│   ├── main.py             # Entry point: Training loop, Logging, and chart generation
-│   └── ef_calculator.py    # Automated extraction of the Ejection Fraction from masks
+│   └── main.py             # Entry point: Training loop, Logging, and chart generation
 │
 │
 ├── logs/                   # (Auto-generated) CSV metrics and training curves
@@ -96,7 +94,7 @@ U-LVEF/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 Ensure you have Python 3.10+ installed. It is highly recommended to use a virtual environment (`venv` or `conda`).
@@ -106,8 +104,6 @@ Clone the repository and install the required dependencies:
 ```bash
 git clone [https://github.com/MarcoSiro/u-lvef.git](https://github.com/MarcoSiro/u-lvef.git)
 cd u-lvef
-python3 -m venv .venv
-source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -123,15 +119,15 @@ Execute the main script to start the PyTorch Lightning trainer. Upon completion,
 python src/main.py
 ```
 
-### 4. Calculate Ejection Fraction
-Execute to calculate automated EF from model prediction and to compare with gold standard.
-```bash
-python src/ef_calculator.py
+### 4. Load Pre-Trained Weights
+The checkpoints for every model version are included in the /checkpoints folder. To load the model for inference:
+```python
+model = LightningModel.load_from_checkpoint("checkpoints/best-model.ckpt")
 ```
 
 ---
 
-## 👨‍⚕️ Author & License
+## Author & License
 **Marco Sironi** *Cardiology Resident & Health-Tech Developer*
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
