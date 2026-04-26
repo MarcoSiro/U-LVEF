@@ -16,9 +16,6 @@
 * **Hardware Efficiency:** Natively optimized for Apple Silicon (MPS) chips and hardware with limited unified memory.
 * **Advanced Training Pipeline:** PyTorch Lightning implementation featuring `EarlyStopping`, `ModelCheckpoint`, and dynamic Learning Rate schedules (`CosineAnnealingWarmRestarts`) to prevent local minima and overfitting.
 
-<details>
-<summary><b>View Examples of model output</b></summary>
-
 <br>
 <p align="center">
   <img src="assets/segmentation_test_case_1.png" width="600"/>
@@ -62,10 +59,10 @@ The development phase focused on optimizing the architecture and training routin
 | :--- | :--- | :---: | :---: | :--- |
 | **v1** | Standard U-Net Baseline | ~31 M | 0.9185 | Overly large network, risk of memorization. Low hardware efficiency (0.3 it/s). |
 | **v2** | **U-Net Mini** (Refactoring) | **~1.9 M** | 0.9199 | **93% parameter reduction**. 10x speed increase while maintaining and exceeding clinical performance due to better generalization. |
-| **v3** | U-Net Mini + Callbacks | ~1.9 M | **0.9258** | Integration of `EarlyStopping` and `ModelCheckpoint` to capture the optimal weights before performance degradation. |
-| **v4** | U-Net Mini + Cosine Annealing | ~1.9 M | 0.9256 | Introduction of *Warm Restarts (SGDR)* to escape local minima during the final epochs. |
+| **v3** | U-Net Mini + Callbacks (Model Checkpoint + Early Stopping) | ~1.9 M | **0.9258** | Integration of `EarlyStopping` and `ModelCheckpoint` to capture the optimal weights before performance degradation. |
+| **v4** | U-Net Mini + Cosine Annealing + Model Checkpoint| ~1.9 M | 0.9256 | Introduction of *Warm Restarts (SGDR)* to escape local minima during the final epochs. |
 
-Learning rate set to 0.0001.
+Learning rate set to 0.0001. Epochs: 20 for v1 and v2, 100 for v3 e v4.
 
 ---
 
@@ -76,14 +73,14 @@ The code is highly modular, separating data processing, training logic, and clin
 ```text
 U-LVEF/
 │
-├── data/                   # Auto-generated folder for the dataset
+├── data/                   # (Auto-generated) folder for the dataset
 ├── src/
 │   ├── download_data.py    # Downloads the CAMUS dataset from HuggingFace Hub
 │   ├── preprocess.py       # Converts .mhd/.raw images into standardized .npy tensors
 │   ├── utilities.py        # Core logic: PyTorch Lightning Module, Dataset, UNet 
 │   └── main.py             # Entry point: Training loop, Logging, and chart generation
 │
-│
+├── checkpoints/            # Best model weights (.ckpt) for each version
 ├── logs/                   # (Auto-generated) CSV metrics and training curves
 ├── checkpoints/            # (Auto-generated) Best model weights (.ckpt)
 ├── assets/                 # loss plots for models versions and example of image segmentation and EF (of v4 model)
@@ -120,7 +117,7 @@ python src/main.py
 ```
 
 ### 4. Load Pre-Trained Weights
-The checkpoints for every model version are included in the /checkpoints folder. To load the model for inference:
+The checkpoints for every best model version are included in the /checkpoints folder. To load the model for inference:
 ```python
 model = LightningModel.load_from_checkpoint("checkpoints/best-model-v1(2,3,4).ckpt")
 ```
