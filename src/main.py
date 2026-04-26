@@ -30,7 +30,7 @@ def main():
 
     checkpoint_callback = ModelCheckpoint(
         monitor="val_loss",
-        dirpath="checkpoints/",
+        dirpath="logs/checkpoints/",
         filename="best-camus-unet-{epoch:02d}-{val_loss:.3f}",
         save_top_k=1,
         mode="min",

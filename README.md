@@ -81,7 +81,7 @@ U-LVEF/
 │   └── main.py             # Entry point: Training loop, Logging, and chart generation
 │
 ├── checkpoints/            # Best model weights (.ckpt) for v2,v3,v4
-├── logs/                   # (Auto-generated) CSV metrics and training curves
+├── logs/                   # (Auto-generated) CSV metrics, raining curves, examples genereted, checkpoints
 ├── assets/                 # loss plots for models versions and example of image segmentation 
 ├── requirements.txt 
 ├── .gitignore
